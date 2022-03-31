@@ -25,8 +25,13 @@ def get_all_animals():
 
     animals_ = soup.find_all('li', class_ = 'list-item col-md-4 col-sm-6')
 
-    animal_list = [item.text.lower().replace(' ', '-') for item in animals_]
+    rough_animal_list = [item.text.lower().replace(' ', '-') for item in animals_]
     
+    animal_list = list()
+
+    for item in rough_animal_list:
+        if not( "(" in item or "/" in item or "\\" in item or "\u2019" in item or "\u00e9en" in item or "\u00f1a" in item):
+            animal_list.append(item)
 
     return {'found': len(animal_list), 'animals': animal_list}
 
@@ -36,13 +41,18 @@ def get_mammals():
 
     mammals_ = soup.find_all('a', class_ = 'trackLink')
 
+    rough_mammal_list = list()
     mammal_list = list()
 
     for item in mammals_:
         if len(str(item.text)):
-            mammal_list.append(item.text.lower().replace(' ', '-'))
+            rough_mammal_list.append(item.text.lower().replace(' ', '-'))
+    
+    for item in rough_mammal_list:
+        if not( "(" in item or  "/" in item or "\\" in item or "\u2019" in item or "\u00e9en" in item or "\u00f1a" in item):
+            mammal_list.append(item)
 
-    return {'found': len(mammal_list), 'fish': mammal_list}
+    return {'found': len(mammal_list), 'mammals': mammal_list}
 
 def get_fish():
     html_text = requests.get(BASE + "animals/fish")
@@ -50,11 +60,16 @@ def get_fish():
 
     fish_ = soup.find_all('a', class_ = 'trackLink')
 
+    rough_fish_list = list()
     fish_list = list()
 
     for item in fish_:
         if len(str(item.text)):
-            fish_list.append(item.text.lower().replace(' ', '-'))
+            rough_fish_list.append(item.text.lower().replace(' ', '-'))
+
+    for item in rough_fish_list:
+        if not( "(" in item or  "/" in item or  "\\" in item or "\u2019" in item or "\u00e9en" in item or "\u00f1a" in item):
+            fish_list.append(item)
 
     return {'found': len(fish_list), 'fish': fish_list}
 
@@ -64,11 +79,16 @@ def get_birds():
 
     birds_ = soup.find_all('a', class_ = 'trackLink')
 
+    rough_bird_list = list()
     bird_list = list()
 
     for item in birds_:
         if len(str(item.text)):
-            bird_list.append(item.text.lower().replace(' ', '-'))
+            rough_bird_list.append(item.text.lower().replace(' ', '-'))
+    
+    for item in rough_bird_list:
+        if not( "(" in item or  "/" in item or "\\" in item or "\u2019" in item or "\u00e9en" in item or "\u00f1a" in item):
+            bird_list.append(item)
 
     return {'found': len(bird_list), 'birds': bird_list}
 
@@ -78,11 +98,16 @@ def get_reptiles():
 
     reptiles_ = soup.find_all('a', class_ = 'trackLink')
 
+    rough_reptiles_list = list()
     reptiles_list = list()
 
     for item in reptiles_:
         if len(str(item.text)):
-            reptiles_list.append(item.text.lower().replace(' ', '-'))
+            rough_reptiles_list.append(item.text.lower().replace(' ', '-'))
+    
+    for item in rough_reptiles_list:
+        if not( "(" in item or  "/" in item or "\\" in item or "\u2019" in item or "\u00e9en" in item or "\u00f1a" in item):
+            reptiles_list.append(item)
 
     return {'found': len(reptiles_list), 'reptiles': reptiles_list}
 
@@ -92,11 +117,16 @@ def get_amphibians():
 
     amphibians_ = soup.find_all('a', class_ = 'trackLink')
 
+    rough_amphibians_list = list()
     amphibians_list = list()
 
     for item in amphibians_:
         if len(str(item.text)):
-            amphibians_list.append(item.text.lower().replace(' ', '-'))
+            rough_amphibians_list.append(item.text.lower().replace(' ', '-'))
+    
+    for item in rough_amphibians_list:
+        if not( "(" in item or  "/" in item or "\\" in item or "\u2019" in item or "\u00e9en" in item or "\u00f1a" in item):
+            amphibians_list.append(item)
 
     return {'found': len(amphibians_list), 'amphibians': amphibians_list}
 
@@ -126,6 +156,20 @@ def get_animal_details(animal_name):
         general_facts[dt[i]] = dd[i]
         i += 1
 
+    if general_facts['Color']:
+        color_list = list()
+        col_str = general_facts['Color']
+        last = ""
+        for item in col_str:
+            if item in ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'L', 'K', 'J', 'H', 'G', 'F', 'D', 'S', 'A', 'Z', 'X', 'C', 'V', 'B', 'N', 'M']:
+                color_list.append(last)
+                last = ""
+                last += item
+            else :
+                last += item
+        color_list.append(last)        
+        color_list.remove("")
+        general_facts['Color'] = color_list
 
     image_html_text = requests.get(BASE + f'animals/{animal_name}/pictures/')
     image_soup = BeautifulSoup(image_html_text.text, 'lxml')
@@ -181,7 +225,9 @@ def get_endangered_list():
         
         for i in range(0, 9):
             if str(all_en[i]).find(str(item)) != -1:
-                endangered_list[endangered_keyword_list[i]].append(item.replace(' ', '-'))
+                to_append = item.replace(' ', '-')
+                if not( "(" in item or "/" in item or "\\" in to_append or "\u2019" in to_append or "\u00e9en" in to_append or "\u00f1a" in to_append):
+                    endangered_list[endangered_keyword_list[i]].append(to_append)
 
     return endangered_list
 
