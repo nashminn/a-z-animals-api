@@ -43,10 +43,13 @@ def get_mammals():
 
     rough_mammal_list = list()
     mammal_list = list()
+    all_animals = get_all_animals()
 
     for item in mammals_:
         if len(str(item.text)):
-            rough_mammal_list.append(item.text.lower().replace(' ', '-'))
+            item = item.text.lower().replace(' ', '-')
+            if item in all_animals['animals']:
+                rough_mammal_list.append(item)
     
     for item in rough_mammal_list:
         if not( "(" in item or  "/" in item or "\\" in item or "\u2019" in item or "\u00e9en" in item or "\u00f1a" in item):
@@ -62,10 +65,13 @@ def get_fish():
 
     rough_fish_list = list()
     fish_list = list()
+    all_animals = get_all_animals()
 
     for item in fish_:
         if len(str(item.text)):
-            rough_fish_list.append(item.text.lower().replace(' ', '-'))
+            item = item.text.lower().replace(' ', '-')
+            if item in all_animals['animals']:
+                rough_fish_list.append(item)
 
     for item in rough_fish_list:
         if not( "(" in item or  "/" in item or  "\\" in item or "\u2019" in item or "\u00e9en" in item or "\u00f1a" in item):
@@ -81,10 +87,13 @@ def get_birds():
 
     rough_bird_list = list()
     bird_list = list()
+    all_animals = get_all_animals()
 
     for item in birds_:
         if len(str(item.text)):
-            rough_bird_list.append(item.text.lower().replace(' ', '-'))
+            item = item.text.lower().replace(' ', '-')
+            if item in all_animals['animals']:
+                rough_bird_list.append(item)
     
     for item in rough_bird_list:
         if not( "(" in item or  "/" in item or "\\" in item or "\u2019" in item or "\u00e9en" in item or "\u00f1a" in item):
@@ -100,10 +109,13 @@ def get_reptiles():
 
     rough_reptiles_list = list()
     reptiles_list = list()
+    all_animals = get_all_animals()
 
     for item in reptiles_:
         if len(str(item.text)):
-            rough_reptiles_list.append(item.text.lower().replace(' ', '-'))
+            item = item.text.lower().replace(' ', '-')
+            if item in all_animals['animals']:
+                rough_reptiles_list.append(item)
     
     for item in rough_reptiles_list:
         if not( "(" in item or  "/" in item or "\\" in item or "\u2019" in item or "\u00e9en" in item or "\u00f1a" in item):
@@ -119,10 +131,13 @@ def get_amphibians():
 
     rough_amphibians_list = list()
     amphibians_list = list()
+    all_animals = get_all_animals()
 
     for item in amphibians_:
         if len(str(item.text)):
-            rough_amphibians_list.append(item.text.lower().replace(' ', '-'))
+            item = item.text.lower().replace(' ', '-')
+            if item in all_animals['animals']:
+                rough_amphibians_list.append(item)
     
     for item in rough_amphibians_list:
         if not( "(" in item or  "/" in item or "\\" in item or "\u2019" in item or "\u00e9en" in item or "\u00f1a" in item):
