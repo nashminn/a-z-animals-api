@@ -1,4 +1,5 @@
 from asyncio import all_tasks
+from asyncio.windows_events import NULL
 from cgitb import html
 from bs4 import BeautifulSoup
 import requests
@@ -172,7 +173,7 @@ def get_animal_details(animal_name):
         general_facts[dt[i]] = dd[i]
         i += 1
 
-    if general_facts['Color']:
+    if 'Color' in general_facts.keys():
         color_list = list()
         col_str = general_facts['Color']
         last = ""
