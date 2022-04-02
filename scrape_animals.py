@@ -13,7 +13,7 @@ def directory_guide():
         "animals/birds": "list of birds",
         "animals/reptiles": "list of reptiles",
         "animals/amphibians": "list of amphibians",
-        "endangered/": "list of endangered animals by category",
+        "animals/endangered/": "list of endangered animals by category",
         "animals/name=animal_name": "displays details about animal, hyphenated lower case name",
         "search/sth1+sth2+...": "dsiplays search result for 'sth1 sth2 ...'"
     }
@@ -161,6 +161,7 @@ def get_animal_details(animal_name):
         classification[left[i]] = right[i]
         i += 1 
     
+    ret_dict['common_name'] = animal_name
     ret_dict['classification'] = classification
 
     general_facts = {}
