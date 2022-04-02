@@ -1,6 +1,3 @@
-from asyncio import all_tasks
-from asyncio.windows_events import NULL
-from cgitb import html
 from bs4 import BeautifulSoup
 import requests
 
