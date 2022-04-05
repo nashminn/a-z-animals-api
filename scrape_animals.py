@@ -19,6 +19,22 @@ def directory_guide():
     }
     return guide
 
+def get_all_animals_raw():
+    html_text = requests.get(BASE + "animals/")
+    soup = BeautifulSoup(html_text.text, 'lxml')
+
+    animals_ = soup.find_all('li', class_ = 'list-item col-md-4 col-sm-6')
+
+    rough_animal_list = [item.text.lower().replace(' ', '-') for item in animals_]
+    
+    animal_list = list()
+
+    for item in rough_animal_list:
+        if not( "(" in item or "/" in item or "\\" in item or "\u2019" in item or "\u00e9en" in item or "\u00f1a" in item):
+            animal_list.append(item)
+
+    return {'found': len(animal_list), 'animals': animal_list}
+
 def get_all_animals():
     html_text = requests.get(BASE + "animals/")
     soup = BeautifulSoup(html_text.text, 'lxml')
@@ -44,7 +60,7 @@ def get_mammals():
 
     rough_mammal_list = list()
     mammal_list = list()
-    all_animals = get_all_animals()
+    all_animals = get_all_animals_raw()
 
     for item in mammals_:
         if len(str(item.text)):
@@ -66,7 +82,7 @@ def get_fish():
 
     rough_fish_list = list()
     fish_list = list()
-    all_animals = get_all_animals()
+    all_animals = get_all_animals_raw()
 
     for item in fish_:
         if len(str(item.text)):
@@ -88,7 +104,7 @@ def get_birds():
 
     rough_bird_list = list()
     bird_list = list()
-    all_animals = get_all_animals()
+    all_animals = get_all_animals_raw()
 
     for item in birds_:
         if len(str(item.text)):
@@ -110,7 +126,7 @@ def get_reptiles():
 
     rough_reptiles_list = list()
     reptiles_list = list()
-    all_animals = get_all_animals()
+    all_animals = get_all_animals_raw()
 
     for item in reptiles_:
         if len(str(item.text)):
@@ -132,7 +148,7 @@ def get_amphibians():
 
     rough_amphibians_list = list()
     amphibians_list = list()
-    all_animals = get_all_animals()
+    all_animals = get_all_animals_raw()
 
     for item in amphibians_:
         if len(str(item.text)):
@@ -251,7 +267,7 @@ def get_endangered_list():
 
 def search_animal(search_text):
     # print(search_text)
-    all_animal_list = get_all_animals()['animals']
+    all_animal_list = get_all_animals_raw()['animals']
 
     html_text = requests.get(BASE + f'search/{search_text}/')
     soup = BeautifulSoup(html_text.text, 'lxml')
