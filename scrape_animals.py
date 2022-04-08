@@ -185,6 +185,14 @@ def get_animal_details(animal_name):
     dt = [every.text for every in soup.find_all('dt', class_='col-sm-6 text-md-right')]
     dd = [every.text for every in soup.find_all('dd', class_='col-sm-6')]
 
+    h2 = [every.text for every in soup.find_all('h2')]
+
+    conv_stat = ""
+    for item in h2:
+        if "Conservation Status" in item:
+            lu = [every.text for every in soup.find_all('ul', class_='list-unstyled')]
+            conv_stat = lu[0]
+
     for i in range(0, len(dt)):
         general_facts[dt[i]] = dd[i]
         i += 1
@@ -230,10 +238,12 @@ def get_animal_details(animal_name):
             image_link.append(item['src'])
         elif name in link_spot or split_name[0] in link_spot or alt_name in link_spot:
             image_link.append(item['src'])
-    
 
     ret_dict['general_facts'] = general_facts
     ret_dict['image_link'] = image_link
+    if (conv_stat != "") :
+        ret_dict['conservation_status'] = conv_stat
+    
 
     return ret_dict
 
