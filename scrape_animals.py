@@ -2,6 +2,7 @@ from typing import final
 from bs4 import BeautifulSoup
 import requests
 import random
+import re
 
 BASE = "https://a-z-animals.com/"
 
@@ -260,18 +261,35 @@ def get_endangered_list():
     for keyword in endangered_keyword_list:
         endangered_list[keyword] = list()
 
-    all_en = [item.text.lower() for item in soup.find_all('ul', class_ = 'list-unstyled row')]
+    all_en = list()
+    
+
+    en_result = soup.find_all('ul', class_ = 'list-unstyled row')
+    for item in en_result:
+        item_str = str(item)
+        result = re.findall(r"https://a-z-animals.com/animals/([^/]*)/", item_str)
+        all_en.append(result)
+
+    for i in range(0, 9):
+        endangered_list[endangered_keyword_list[i]] = all_en[i]
 
 
-    extract = [item.text.lower() for item in soup.find_all('li', class_ = 'list-item col-md-4 col-sm-6')]
-
-    for item in extract:
-        
-        for i in range(0, 9):
-            if str(all_en[i]).find(str(item)) != -1:
-                to_append = item.replace(' ', '-')
-                if not( "(" in item or "/" in item or "\\" in to_append or "\u2019" in to_append or "\u00e9en" in to_append or "\u00f1a" in to_append):
-                    endangered_list[endangered_keyword_list[i]].append(to_append)
+    # extract = [item.text.lower() for item in soup.find_all('li', class_ = 'list-item col-md-4 col-sm-6')]
+    
+    # for item in extract:
+    #     for i in range(0, 9):
+    #         if str(all_en[i]).find(str(item)) != -1:
+    #             sth = str(item)
+    #             to_append = ""
+    #             for letter in sth:
+    #                 if ( letter.isalpha() or letter == ' ' ):
+    #                     to_append = to_append + letter
+                
+                
+    #             to_append = to_append.replace(' ', '-')
+                
+    #             if not( "(" in item or "/" in item or "\\" in to_append or "\u2019" in to_append or "\u00e9en" in to_append or "\u00f1a" in to_append):
+    #                 endangered_list[endangered_keyword_list[i]].append(to_append)
 
     return endangered_list
 
