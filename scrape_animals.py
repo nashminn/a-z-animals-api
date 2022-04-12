@@ -234,12 +234,15 @@ def get_animal_details(animal_name):
     
     for item in image_links:
         spot = item['alt'].lower()
-        link_spot = str(item['src'])
-        if "https" in link_spot:
-            if name in spot or split_name[0] in spot or alt_name in spot or alt_name.split('_')[0] in spot :
-                image_link.append(item['src'])
-            elif name in link_spot or split_name[0] in link_spot or alt_name in link_spot:
-                image_link.append(item['src'])
+        try:
+            link_spot = str(item['src'])
+            if "https" in link_spot:
+                if name in spot or split_name[0] in spot or alt_name in spot or alt_name.split('_')[0] in spot :
+                    image_link.append(item['src'])
+                elif name in link_spot or split_name[0] in link_spot or alt_name in link_spot:
+                    image_link.append(item['src'])
+        except:
+            print("key error")
 
     ret_dict['general_facts'] = general_facts
     ret_dict['image_link'] = image_link
