@@ -242,7 +242,8 @@ def get_animal_details(animal_name):
                 elif name in link_spot or split_name[0] in link_spot or alt_name in link_spot:
                     image_link.append(item['src'])
         except:
-            print("key error")
+            # print("key error")
+            abcd = 1
 
     ret_dict['general_facts'] = general_facts
     ret_dict['image_link'] = image_link
