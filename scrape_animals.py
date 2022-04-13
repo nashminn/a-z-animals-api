@@ -32,7 +32,8 @@ def get_all_animals_raw():
 
     for item in rough_animal_list:
         if not( "(" in item or "/" in item or "\\" in item or "\u2019" in item or "\u00e9en" in item or "\u00f1a" in item):
-            animal_list.append(item)
+            if not len(item) > 40:
+                animal_list.append(item)
 
     return {'found': len(animal_list), 'animals': animal_list}
 
@@ -48,7 +49,8 @@ def get_all_animals():
 
     for item in rough_animal_list:
         if not( "(" in item or "/" in item or "\\" in item or "\u2019" in item or "\u00e9en" in item or "\u00f1a" in item):
-            animal_list.append(item)
+            if not len(item) > 40:
+                animal_list.append(item)
     animal_list = randomize_list(animal_list)
 
     return {'found': len(animal_list), 'animals': animal_list}
@@ -93,7 +95,8 @@ def get_fish():
 
     for item in rough_fish_list:
         if not( "(" in item or  "/" in item or  "\\" in item or "\u2019" in item or "\u00e9en" in item or "\u00f1a" in item):
-            fish_list.append(item)
+            if not len(item) > 40:
+                fish_list.append(item)
     fish_list = randomize_list(fish_list)
     return {'found': len(fish_list), 'fish': fish_list}
 
@@ -115,7 +118,8 @@ def get_birds():
     
     for item in rough_bird_list:
         if not( "(" in item or  "/" in item or "\\" in item or "\u2019" in item or "\u00e9en" in item or "\u00f1a" in item):
-            bird_list.append(item)
+            if not len(item) > 40:
+                bird_list.append(item)
     bird_list = randomize_list(bird_list)
     return {'found': len(bird_list), 'birds': bird_list}
 
@@ -137,7 +141,8 @@ def get_reptiles():
     
     for item in rough_reptiles_list:
         if not( "(" in item or  "/" in item or "\\" in item or "\u2019" in item or "\u00e9en" in item or "\u00f1a" in item):
-            reptiles_list.append(item)
+            if not len(item) > 40:
+                reptiles_list.append(item)
     reptiles_list = randomize_list(reptiles_list)
     return {'found': len(reptiles_list), 'reptiles': reptiles_list}
 
@@ -159,7 +164,8 @@ def get_amphibians():
     
     for item in rough_amphibians_list:
         if not( "(" in item or  "/" in item or "\\" in item or "\u2019" in item or "\u00e9en" in item or "\u00f1a" in item):
-            amphibians_list.append(item)
+            if not len(item) > 40:
+                amphibians_list.append(item)
     amphibians_list = randomize_list(amphibians_list)
     return {'found': len(amphibians_list), 'amphibians': amphibians_list}
 
