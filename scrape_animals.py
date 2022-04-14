@@ -317,8 +317,10 @@ def randomize_list(animal_list):
 
     final_list = list()
 
-    for i in range(0, 50):
+    while len(final_list) < 50:
         keep = random.randint(0, size - 1)
-        final_list.append( animal_list[keep] )
+        toAdd = animal_list[keep]
+        if toAdd not in final_list:
+            final_list.append( animal_list[keep] )
 
     return final_list
