@@ -162,12 +162,18 @@ def get_amphibians():
             item = item.text.lower().replace(' ', '-')
             # if item in all_animals['animals']:
             rough_amphibians_list.append(item)
-    
-    for item in rough_amphibians_list:
-        if not( ":" in item or "(" in item or  "/" in item or "\\" in item or "\u2019" in item or "\u00e9en" in item or "\u00f1a" in item):
-            if not len(item) > 40:
-                amphibians_list.append(item)
+   
+    try:
+        for item in rough_amphibians_list:
+            if not( ":" in item or "(" in item or  "/" in item or "\\" in item or "\u2019" in item or "\u00e9en" in item or "\u00f1a" in item):
+                if not len(item) > 30:
+                    amphibians_list.append(item)
+    except:
+        print("shit went down")
+
     amphibians_list = randomize_list(amphibians_list)
+    
+    
     return {'found': len(amphibians_list), 'amphibians': amphibians_list}
 
 
@@ -317,6 +323,9 @@ def randomize_list(animal_list):
     size = len(animal_list)
 
     final_list = list()
+
+    if(len(animal_list) < 500):
+         return animal_list
 
     while len(final_list) < 50:
         keep = random.randint(0, size - 1)
